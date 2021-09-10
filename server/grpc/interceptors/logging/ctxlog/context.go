@@ -38,7 +38,8 @@ func Extract(ctx context.Context) *logger.Helper {
 		return nullLogger
 	}
 	// Add grpc_ctxtags tags metadata until now.
-	fields := TagsToFields(ctx)
+	//fields := TagsToFields(ctx)
+	fields := make(map[string]interface{}, 0)
 	// Add logger fields added until now.
 	for k, v := range l.fields {
 		fields[k] = v
@@ -47,9 +48,9 @@ func Extract(ctx context.Context) *logger.Helper {
 }
 
 // TagsToFields transforms the Tags on the supplied context into logger fields.
-func TagsToFields(ctx context.Context) map[string]interface{} {
-	return grpc_ctxtags.Extract(ctx).Values()
-}
+// func TagsToFields(ctx context.Context) map[string]interface{} {
+// 	return grpc_ctxtags.Extract(ctx).Values()
+// }
 
 // ToContext adds the logger.Logger to the context for extraction later.
 // Returning the new context that has been created.
